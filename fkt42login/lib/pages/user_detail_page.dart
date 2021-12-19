@@ -19,31 +19,34 @@ class UserDetail extends StatelessWidget {
           centerTitle: true,
           title: const Text("Profilseite",),
         ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                SizedBox(height: height*0.1),
-                CircleAvatar(
-                  backgroundColor: themeData.colorScheme.primary,
-                  radius: width*0.32,
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(user.avatar),
-                    radius: width*0.3
-                    ),
-                ),  
-                SizedBox(
-                  height: height*0.04,
-                ),
-                Text(user.fullname, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                SizedBox(
-                  height: height*0.02,
-                ),
-                Text(user.email),
-              ],
-            ),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  SizedBox(height: height*0.1),
+                  CircleAvatar(
+                    backgroundColor: themeData.colorScheme.primary,
+                    radius: width*0.32,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(user.avatar),
+                      radius: width*0.3
+                      ),
+                  ),  
+                  SizedBox(
+                    height: height*0.04,
+                  ),
+                  Text(user.fullname, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(
+                    height: height*0.02,
+                  ),
+                  Text(user.email),
+                ],
+              ),
+            ],
+          ),
         ));
   }
 }

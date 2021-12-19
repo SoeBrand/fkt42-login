@@ -1,12 +1,13 @@
 import 'package:fkt42login/utils.dart';
 import 'package:fkt42login/themes.dart';
 import 'package:fkt42login/widgets/button.dart';
-import 'package:fkt42login/widgets/textfield_password.dart';
+import 'package:fkt42login/widgets/textfield_password_login.dart';
 import 'package:fkt42login/widgets/textfield_email.dart';
+import 'package:fkt42login/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
+import 'package:fkt42login/themes.dart';
 
 class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
@@ -32,7 +33,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: height * 0.4,
+                  height: height * 0.35,
                 ),
                 createEmailTextfield(emailController: emailController),
                 SizedBox(height: height * 0.05),
@@ -47,13 +48,11 @@ class LoginPage extends StatelessWidget {
                     if (!_formKey.currentState!.validate()) {
                       return;
                     }
-                    print(emailController.text);
-                    print(passwordController.text);
                     bool validLogin = await Login.loginUser(
                         emailController.text, passwordController.text);
 
                     if (validLogin) {
-                      Navigator.of(context).pushReplacementNamed('/userlist');
+                      Navigator.of(context).pushNamedAndRemoveUntil('/userlist', (Route<dynamic> route) => false);
                     } else {
                       showDialog(
                           context: context,
@@ -64,7 +63,14 @@ class LoginPage extends StatelessWidget {
                           });
                     }
                   },
-                )
+                ),
+                SizedBox(
+                  height: height*0.03,
+                ),
+                Center(
+                  child: Text("Ich habe noch kein Konto", style: themeData.textTheme.bodyText1!.copyWith(fontSize: 14)),
+                ),
+                TextButton(onPressed: (){Navigator.of(context).pushNamed('/register');}, child: Text("Registrieren", style: themeData.textTheme.bodyText1!.copyWith(fontSize: 14, color: Colors.white)))
               ],
             ),
           ),
@@ -102,15 +108,6 @@ class Login {
     );
     if (response.statusCode == 200) {
       return true;
-      /*
-      final storage = new FlutterSecureStorage();
-      await storage.write(key: "email", value: email);
-      await storage.write(key: "password", value: password);
-      return true;
-    } else {
-      return false;
-    }*/
-
     }
     return false;
   }

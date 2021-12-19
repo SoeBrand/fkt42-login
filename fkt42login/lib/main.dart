@@ -1,4 +1,5 @@
 import 'package:fkt42login/pages/login_page.dart';
+import 'package:fkt42login/pages/register_page.dart';
 import 'package:fkt42login/themes.dart';
 import 'package:fkt42login/pages/user_list_page.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,9 @@ class MyApp extends StatelessWidget {
 
       routes: <String, WidgetBuilder>{
       "/login": (BuildContext context) => LoginPage(),
-      "/userlist": (BuildContext context) => UserListPage(),}
+      "/userlist": (BuildContext context) => UserListPage(),
+      "/register": (BuildContext context) => RegisterPage(),
+      }
     
     );}
 }
