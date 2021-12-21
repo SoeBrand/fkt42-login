@@ -11,13 +11,15 @@ class UserDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;  //width of the screen
+    double height = MediaQuery.of(context).size.height;  //height of the screen
     final themeData = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Profilseite",),
+          title: const Text(
+            "Profilseite",
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -26,21 +28,27 @@ class UserDetail extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  SizedBox(height: height*0.1),
+                  SizedBox(height: height * 0.1),
+                  //frame for avatar picture
                   CircleAvatar(
                     backgroundColor: themeData.colorScheme.primary,
-                    radius: width*0.32,
+                    radius: width * 0.32,
+                    //user avatar picture
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(user.avatar),
-                      radius: width*0.3
-                      ),
-                  ),  
-                  SizedBox(
-                    height: height*0.04,
+                        backgroundImage: NetworkImage(user.avatar),
+                        radius: width * 0.3),
                   ),
-                  Text(user.fullname, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(
-                    height: height*0.02,
+                    height: height * 0.04,
+                  ),
+                  //user details
+                  Text(
+                    user.fullname,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
                   ),
                   Text(user.email),
                 ],

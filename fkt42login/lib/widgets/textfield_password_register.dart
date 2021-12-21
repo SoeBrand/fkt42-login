@@ -9,7 +9,9 @@ class CreatePasswordReg extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return TextFormField(
+      cursorColor: themeData.colorScheme.onPrimary,
         controller: passwordController,
+        //validating if value is not null but empty or shorter than 6 characters
         validator: (value) {
           if (value != null) {
             if (value.isEmpty || value.length < 6) {
@@ -26,9 +28,10 @@ class CreatePasswordReg extends StatelessWidget {
         autocorrect: false,
         decoration: InputDecoration(
           counterText: '',
-          hintText: 'Passwort',
+          hintText: 'Passwort', 
           hintStyle: themeData.textTheme.bodyText1,
           prefixIcon: Icon(Icons.lock, color: themeData.colorScheme.onPrimary),
+          //underline border when selected and not selected
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: themeData.colorScheme.onPrimary)),
           focusedBorder: UnderlineInputBorder(
@@ -36,5 +39,3 @@ class CreatePasswordReg extends StatelessWidget {
         ));
   }
 }
-
-

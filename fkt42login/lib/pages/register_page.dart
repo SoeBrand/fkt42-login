@@ -8,17 +8,19 @@ import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
   @override
+  //textfiel controller
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordValidateController = TextEditingController();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width; //width of the screen
+    double height = MediaQuery.of(context).size.height; //height of the screen
     final themeData = Theme.of(context);
 
     return Scaffold(
@@ -35,13 +37,16 @@ class RegisterPage extends StatelessWidget {
                 ),
                 createEmailTextfield(emailController: emailController),
                 SizedBox(height: height * 0.05),
+                //textfield password
                 CreatePasswordReg(passwordController: passwordController),
                 SizedBox(
                   height: height * 0.05,
                 ),
+                //textfield password validation
                 CreatePasswordVal(
-                    passwordValidateController: passwordValidateController,
-                    passwordController: passwordController,),
+                  passwordValidateController: passwordValidateController,
+                  passwordController: passwordController,
+                ),
                 SizedBox(
                   height: height * 0.07,
                 ),
@@ -49,17 +54,23 @@ class RegisterPage extends StatelessWidget {
                     text: "Registrieren",
                     color: themeData.colorScheme.onPrimary,
                     onPressed: () async {
+                      //validating the form
                       if (!_formKey.currentState!.validate()) {
                         return;
                       }
                       try {
-                        bool registration = await registerUser(emailController.text,
-                            passwordController.text, context);
+                        //waiting for bool of registerUser
+                        bool registration = await registerUser(
+                            emailController.text,
+                            passwordController.text,
+                            context);
+                        //register data valid --> register
                         if (registration) {
                           Navigator.of(context).pushNamed(
                             '/login',
                           );
                         }
+                        //register data invalid --> catch error
                       } catch (err) {
                         print(err);
                       }
@@ -72,6 +83,7 @@ class RegisterPage extends StatelessWidget {
                       style: themeData.textTheme.bodyText1!
                           .copyWith(fontSize: 14)),
                 ),
+                //redirecting to LoginPage
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -90,22 +102,23 @@ class RegisterPage extends StatelessWidget {
 
 Future<bool> registerUser(
     String email, String password, BuildContext context) async {
-  String basicAuth = 'Basic ' + base64Encode(utf8.encode('test:W!_FjnC_V4'));
+  //parsing the request url into a new url
   var uri = Uri.parse('https://reqres.in/api/register');
 
+  //sending post-request to api
   final response = await http.post(
     uri,
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'authorization': basicAuth,
     },
     body: jsonEncode(<String, String>{
       'email': email,
       'password': password,
     }),
   );
+  //if registration is valid --> return true
   if (response.statusCode == 200) {
-    print("Registrierung erfolgreich");
+    print("registration successful.");
     return true;
   }
   return false;
